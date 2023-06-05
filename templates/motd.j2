@@ -1,0 +1,6 @@
+{{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_distribution_release }}
+
+FQDN:      {{ ansible_fqdn }} ({{ ansible_all_ipv4_addresses }})
+Processor: {{ ansible_processor_count }}x {{ ansible_processor }}
+Kernel:    {{ ansible_kernel }}
+Memory:    {{ ansible_memtotal_mb/1000|pow(3) |round|int }} GB

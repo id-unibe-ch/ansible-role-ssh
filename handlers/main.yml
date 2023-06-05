@@ -1,0 +1,7 @@
+---
+# handlers file for ssh
+#
+- name: Reload firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: reloaded

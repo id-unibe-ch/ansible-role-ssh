@@ -1,0 +1,88 @@
+---
+# tasks file for ssh
+#
+
+- name: SSH | Include OS-specific variables.
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: SSH | Include distribution and version-specific vars.
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+      skip: true
+
+- name: Be sure ssh is installed
+  ansible.builtin.package:
+    name: '{{ __ssh_server_packages }}'
+    state: present
+
+      #- name: Start ssh service
+      #  ansible.builtin.systemd:
+      #    name: ssh
+      #    state: started
+      #    enabled: true
+
+- name: SSH | Copy known hosts files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/ssh/{{ item | basename }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ ssh_global_known_hosts }}"
+  when: ssh_global_known_hosts | length > 0
+
+- name: SSH | Remove default sshd config file
+  ansible.builtin.file:
+    name: "/etc/ssh/sshd_config.d/50-redhat.conf"
+    state: absent
+
+- name: SSH | Manage sshd config
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0640'
+      #    validate: /usr/sbin/sshd -t -f %s
+
+- name: SSH | Manage firewalld
+  when: ssh_manage_firewall | bool
+  block:
+    - name: SSH | Configure ssh port in firewalld service
+      ansible.builtin.template:
+        src: ssh.xml.j2
+        dest: /etc/firewalld/services/ssh.xml
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Reload firewalld
+
+    - name: SSH | permit ssh traffic in default zone
+      ansible.posix.firewalld:
+        service: ssh
+        permanent: true
+        state: enabled
+
+- name: SSH | Install motd banner
+  ansible.builtin.template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: SSH | Remove default ssh client config file
+  ansible.builtin.file:
+    name: "/etc/ssh/ssh_config.d/50-redhat.conf"
+    state: absent
+
+- name: SSH | Manage ssh client config
+  ansible.builtin.template:
+    src: ssh_config.j2
+    dest: /etc/ssh/ssh_config
+    owner: root
+    group: root
+    mode: '0644'

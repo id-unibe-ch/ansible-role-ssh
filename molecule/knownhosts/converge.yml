@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  vars:
+    ssh_allowusers: [root]
+    ssh_global_known_hosts: [known_hosts_one, known_hosts_two]
+  tasks:
+    - name: "Include ansible-role-ssh"
+      ansible.builtin.include_role:
+        name: "ubelix.ssh"

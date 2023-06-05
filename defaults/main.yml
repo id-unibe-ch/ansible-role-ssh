@@ -1,0 +1,21 @@
+---
+# defaults file for ssh
+
+ssh_port: "22"
+ssh_address_family: "inet"
+ssh_root_login: "prohibit-password"
+ssh_syslogfacility: "AUTHPRIV"
+ssh_password_auth: "no"
+ssh_pubkey_auth: "yes"
+ssh_kbdinteractive: "yes"
+ssh_x11_forwarding: "yes"
+ssh_gssapi_authentication: "yes"
+ssh_permit_tunnel: "no"
+ssh_motd: "yes"
+ssh_maxstartups: "1024" # needed by GPFS
+
+ssh_allowusers: []
+
+ssh_global_known_hosts: []
+
+ssh_manage_firewall: true
