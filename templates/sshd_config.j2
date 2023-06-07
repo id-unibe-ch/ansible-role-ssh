@@ -12,8 +12,6 @@
 #  /etc/ssh/sshd_config.d/  which will be automatically included below
 Include /etc/ssh/sshd_config.d/*.conf
 
-# Follow system-wide Crypto Policy, if defined:
-#Include /etc/crypto-policies/back-ends/openssh.config
 
 # If you want to change the port on a SELinux system, you have to tell
 # SELinux about this change.
@@ -24,15 +22,19 @@ AddressFamily {{ ssh_address_family }}
 #ListenAddress 0.0.0.0
 #ListenAddress ::
 
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_rsa_key
 
 # Ciphers and keying
 #RekeyLimit default none
-Ciphers -ecdsa-sha2-nistp256,ssh-rsa
-MACs -hmac-sha1,hmac1-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,umac-128@openssh.com,umac-64-etm@openssh.com,umac-64@openssh.com
+HostKeyAlgorithms -ecdsa-sha2-nistp256,ssh-rsa
+MACs -hmac-sha1,hmac-sha1-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,umac-128@openssh.com,umac-64-etm@openssh.com,umac-64@openssh.com
 KexAlgorithms -ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha256,+sntrup761x25519-sha512@openssh.com
+
+# Follow system-wide Crypto Policy, if defined
+# Note: The values above overrule any settings in the file below!
+Include /etc/crypto-policies/back-ends/openssh.config
 
 # Logging
 SyslogFacility {{ ssh_syslogfacility }}
@@ -135,4 +137,4 @@ Subsystem	sftp	/usr/libexec/openssh/sftp-server
 #	PermitTTY no
 #	ForceCommand cvs server
 
-AllowUsers {{ ssh_allowusers }}
+{% if ssh_allowusers | length >0 %}AllowUsers {% for user in ssh_allowusers %}{{ user }} {% endfor %}{% endif %}

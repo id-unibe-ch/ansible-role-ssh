@@ -7,3 +7,23 @@
       ansible.builtin.package:
         name: firewalld
         state: present
+
+    - name: Install ssh client
+      ansible.builtin.package:
+        name: openssh-clients
+        state: present
+
+    - name: Ensure /etc/ssh exists
+      ansible.builtin.file:
+        path: /etc/ssh
+        state: directory
+        mode: '0755'
+
+    - name: Recreate host keys - create new keys 1/3
+      ansible.builtin.command: ssh-keygen -t rsa -b 4096 -N '' -f /etc/ssh/ssh_host_rsa_key
+
+    - name: Recreate host keys - create new keys 2/3
+      ansible.builtin.command: ssh-keygen -t ecdsa -N '' -f /etc/ssh/ssh_host_ecdsa_key
+
+    - name: Recreate host keys - create new keys 1/3
+      ansible.builtin.command: ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key
