@@ -95,6 +95,13 @@ Specifies the maximum number of concurrent unauthenticated connections to the SS
 This keyword can be followed by a list of user name patterns, separated by spaces.  If specified, login is allowed only for user
 names that match one of the patterns.
 
+### ssh_allowgroups
+
+    ssh_allowgroups: []
+
+This keyword can be followed by a list of group name patterns, separated by spaces.  If specified, login is allowed only for users whose primary group or
+supplementary group list matches one of the patterns.  Only group names are valid; a numerical group ID is not recognized.
+
 ### ssh_global_known_hosts
 
     ssh_global_known_hosts: []

@@ -15,6 +15,7 @@ ssh_motd: "yes"
 ssh_maxstartups: "1024" # needed by GPFS
 
 ssh_allowusers: []
+ssh_allowgroups: []
 
 ssh_global_known_hosts: []
 

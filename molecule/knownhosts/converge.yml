@@ -4,6 +4,7 @@
   gather_facts: true
   vars:
     ssh_allowusers: [root]
+    ssh_allowgroups: [root, wheel]
     ssh_global_known_hosts: [known_hosts_one, known_hosts_two]
   tasks:
     - name: "Include ansible-role-ssh"

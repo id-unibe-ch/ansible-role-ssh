@@ -138,3 +138,5 @@ Subsystem	sftp	/usr/libexec/openssh/sftp-server
 #	ForceCommand cvs server
 
 {% if ssh_allowusers | length >0 %}AllowUsers {% for user in ssh_allowusers %}{{ user }} {% endfor %}{% endif %}
+
+{% if ssh_allowgroups | length >0 %}AllowGroups {% for group in ssh_allowgroups %}{{ group }} {% endfor %}{% endif %}
