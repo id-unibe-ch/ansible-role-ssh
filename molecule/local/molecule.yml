@@ -6,6 +6,15 @@ driver:
   name: podman
 platforms:
   
+  - name: ubuntu2204 
+    image: geerlingguy/docker-ubuntu2204-ansible:latest
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+    privileged: true
+    pre_build_image: true
+
   - name: rockylinux9 
     image: geerlingguy/docker-rockylinux9-ansible:latest
     command: ${MOLECULE_DOCKER_COMMAND:-""}
@@ -14,7 +23,7 @@ platforms:
     cgroupns_mode: host
     privileged: true
     pre_build_image: true
-  
+
 provisioner:
   name: ansible
   playbooks:
