@@ -128,6 +128,7 @@ passed in as parameters) is always nice for users too:
 This role has been written for and tested on and is therefore compatible with:
 
 * Rocky-9
+* Ubuntu 22.04
 
 ## License
 
