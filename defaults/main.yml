@@ -12,7 +12,7 @@ ssh_x11_forwarding: "yes"
 ssh_gssapi_authentication: "yes"
 ssh_permit_tunnel: "no"
 ssh_motd: "yes"
-ssh_maxstartups: "1024" # needed by GPFS
+ssh_maxstartups: ''
 
 ssh_allowusers: []
 ssh_allowgroups: []

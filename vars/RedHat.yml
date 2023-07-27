@@ -1,3 +1,5 @@
 ---
 
 __ssh_server_packages: 'openssh-server'
+
+__ssh_maxstartups: "1024" # needed by GPFS

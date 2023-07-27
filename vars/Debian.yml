@@ -1,3 +1,8 @@
 ---
 
 __ssh_server_packages: 'openssh-server'
+
+# While GPFS would like MaxStartups to be 1024, this is not possible
+# due to a bug in the openssh-server package.  See:
+# https://www.mail-archive.com/openssh-bugs@mindrot.org/msg15709.html
+__ssh_maxstartups: "1023" # needed by GPFS

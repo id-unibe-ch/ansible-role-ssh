@@ -118,7 +118,7 @@ PrintMotd {{ ssh_motd }}
 #ClientAliveCountMax 3
 UseDNS no
 #PidFile /var/run/sshd.pid
-MaxStartups {{ ssh_maxstartups }}
+MaxStartups {{ ssh_maxstartups | default(__ssh_maxstartups, true) }}
 
 PermitTunnel {{ ssh_permit_tunnel }}
 #ChrootDirectory none

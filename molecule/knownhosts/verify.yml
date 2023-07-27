@@ -5,6 +5,32 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+    - name: AllowUsers is set to root
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^AllowUsers"
+        line: "AllowUsers root"
+        state: present
+      check_mode: true
+      register: allowusers
+      failed_when: allowusers is not changed
+
+    - name: AllowGroups is set to root, wheel
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^AllowGroups"
+        line: "AllowGroups root, wheel"
+        state: present
+      check_mode: true
+      register: allowgroups
+      failed_when: allowgroups is not changed
+
+    - name: GlobalKnownHostsFile is set to known_hosts_one, known_hosts_two
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/ssh_config
+        regexp: "^GlobalKnownHostsFile"
+        line: "GlobalKnownHostsFile known_hosts_one, known_hosts_two"
+        state: present
+      check_mode: true
+      register: knownhosts
+      failed_when: knownhosts is not changed
