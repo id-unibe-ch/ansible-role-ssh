@@ -121,7 +121,7 @@ passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: ubelix.ssh, ssh_port: "42" }
+         - { role: unibeid.ssh, ssh_port: "42" }
 
 ## Compatibility
 
