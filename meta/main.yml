@@ -5,7 +5,7 @@ galaxy_info:
   company: hpc-unibe-ch
 
   role_name: ssh
-  namespace: ubelix
+  namespace: unibeid
 
   license: MIT
 

@@ -26,7 +26,7 @@
 
     - name: Install ssh client
       ansible.builtin.package:
-        name: "{{ 'openssh-clients' if (ansible_os_family == 'RedHat')  else 'openssh-client' }}"
+        name: "{{ 'openssh-clients' if (ansible_os_family == 'RedHat') else 'openssh-client' }}"
         state: present
 
     - name: Ensure /etc/ssh exists

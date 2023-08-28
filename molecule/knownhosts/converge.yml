@@ -9,4 +9,4 @@
   tasks:
     - name: "Include ansible-role-ssh"
       ansible.builtin.include_role:
-        name: "ubelix.ssh"
+        name: "unibeid.ssh"
