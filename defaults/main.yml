@@ -13,6 +13,7 @@ ssh_gssapi_authentication: "yes"
 ssh_permit_tunnel: "no"
 ssh_motd: "no"
 ssh_maxstartups: ''
+ssh_subsystem_sftp: ""
 
 ssh_allowusers: []
 ssh_allowgroups: []
