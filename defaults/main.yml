@@ -11,7 +11,7 @@ ssh_kbdinteractive: "yes"
 ssh_x11_forwarding: "yes"
 ssh_gssapi_authentication: "yes"
 ssh_permit_tunnel: "no"
-ssh_motd: "yes"
+ssh_motd: "no"
 ssh_maxstartups: ''
 
 ssh_allowusers: []
