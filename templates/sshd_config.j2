@@ -101,7 +101,7 @@ GSSAPICleanupCredentials yes
 # and KbdInteractiveAuthentication to 'no'.
 # WARNING: 'UsePAM no' is not supported in RHEL and may cause several
 # problems.
-UsePAM yes
+UsePAM {{ ssh_use_pam }}
 
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
@@ -117,7 +117,7 @@ PrintMotd {{ ssh_motd }}
 #Compression delayed
 #ClientAliveInterval 0
 #ClientAliveCountMax 3
-UseDNS no
+UseDNS {{ ssh_use_dns }}
 #PidFile /var/run/sshd.pid
 MaxStartups {{ ssh_maxstartups | default(__ssh_maxstartups, true) }}
 

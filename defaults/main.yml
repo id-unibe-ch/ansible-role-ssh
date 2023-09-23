@@ -12,7 +12,9 @@ ssh_x11_forwarding: "yes"
 ssh_gssapi_authentication: "yes"
 ssh_permit_tunnel: "no"
 ssh_motd: "no"
-ssh_maxstartups: ''
+ssh_maxstartups: ""
+ssh_use_dns: "no"
+ssh_use_pam: "yes"
 ssh_subsystem_sftp: ""
 
 ssh_allowusers: []
