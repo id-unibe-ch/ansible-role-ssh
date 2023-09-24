@@ -38,8 +38,8 @@ KexAlgorithms -ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-h
 Include /etc/crypto-policies/back-ends/openssh.config
 
 # Logging
-SyslogFacility {{ ssh_syslogfacility }}
-#LogLevel INFO
+SyslogFacility {{ ssh_syslog_facility | default(__ssh_syslog_facility, true) }}
+LogLevel {{ ssh_log_level }}
 
 # Authentication:
 
