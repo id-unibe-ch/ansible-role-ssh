@@ -110,9 +110,11 @@ Specifies one or more files to use for the global host key database, separated b
 
 ### ssh_manage_firewall
 
-    ssh_manage_firewall: true
+    ssh_manage_firewall: false
 
-Whether to manage firewall (firewalld) or not
+Whether to manage the firewall using `ansible.posix.firwalld` or not. This a
+soft dependency. If you want to use it, either use the full Ansible package or
+add the collection `ansible.posix` to your `requirements.yml`!
 
 ## Example Playbook
 
@@ -129,6 +131,11 @@ This role has been written for and tested on and is therefore compatible with:
 
 * Rocky-9
 * Ubuntu 22.04
+
+## Dependencies
+
+This role has a soft dependency on the collection `ansible.posix` if you set
+`ssh_manage_firewall` to true.
 
 ## License
 

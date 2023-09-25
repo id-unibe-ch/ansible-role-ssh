@@ -23,4 +23,4 @@ ssh_allowgroups: []
 
 ssh_global_known_hosts: []
 
-ssh_manage_firewall: true
+ssh_manage_firewall: false
