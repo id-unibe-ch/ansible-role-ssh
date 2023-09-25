@@ -2,14 +2,21 @@
 
 # Should the sshd service be managed by this role
 ssh_manage_sshd: true
+# Shoud this role open the SSH port in the firewall
+ssh_manage_firewall: false
 
 # Default port the sshd service should listen on
+# If you want to change the port on a SELinux system, you have to tell
+# SELinux about this change, for example:
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
 ssh_port: "22"
 
 ssh_address_family: "inet"
 ssh_root_login: "prohibit-password"
 ssh_syslog_facility: ""
-ssh_log_level: "INFO"
+# Default log level, VERBOSE is need to have a clear
+# audit track of which key was used to login
+ssh_log_level: "VERBOSE"
 ssh_password_auth: "no"
 ssh_pubkey_auth: "yes"
 ssh_kbdinteractive: "yes"
@@ -29,4 +36,8 @@ ssh_allowgroups: []
 # and added to the ssh client config
 ssh_global_known_hosts: []
 
-ssh_manage_firewall: false
+## Crypto-related configuration options
+ssh_crypto_hostkey_algos: []
+ssh_crypto_kex_algos: []
+ssh_crypto_ciphers: []
+ssh_crypto_macs: []

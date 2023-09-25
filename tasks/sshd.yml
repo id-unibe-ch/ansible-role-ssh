@@ -11,6 +11,13 @@
   notify: restart-sshd
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version | int >= 9
 
+- name: Disable system-wide crypto policy usage on RHEL-8
+  ansible.builtin.lineinfile:
+    path: /etc/sysconfig/sshd
+    regexp: '^#.*CRYPTO_POLICY='
+    line: 'CRYPTO_POLICY='
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version | int == 8
+
 - name: Purge short primes
   block:
     - name: Identify primes shorter than 3071 bits in moduli file
