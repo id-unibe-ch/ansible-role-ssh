@@ -1,7 +1,11 @@
 ---
-# defaults file for ssh
 
+# Should the sshd service be managed by this role
+ssh_manage_sshd: true
+
+# Default port the sshd service should listen on
 ssh_port: "22"
+
 ssh_address_family: "inet"
 ssh_root_login: "prohibit-password"
 ssh_syslog_facility: ""
@@ -16,11 +20,13 @@ ssh_motd: "no"
 ssh_maxstartups: "10:30:100"
 ssh_use_dns: "no"
 ssh_use_pam: "yes"
-ssh_subsystem_sftp: ""
+ssh_sftp_server: ""
 
 ssh_allowusers: []
 ssh_allowgroups: []
 
+# Additional known hosts file that should be copied to the host
+# and added to the ssh client config
 ssh_global_known_hosts: []
 
 ssh_manage_firewall: false

@@ -1,0 +1,10 @@
+---
+__ssh_os_supported: false
+
+__ssh_required_facts:
+  - distribution
+  - distribution_major_version
+  - os_family
+
+__ssh_syslog_facility: AUTH
+__ssh_sftp_server: "/usr/lib/openssh/sftp-server"

@@ -1,0 +1,7 @@
+---
+__ssh_os_supported: true
+
+__ssh_server_packages:
+  - openssh-client
+  - openssh-server
+  - openssh-sftp-server

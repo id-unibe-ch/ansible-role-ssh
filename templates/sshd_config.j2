@@ -129,7 +129,7 @@ PermitTunnel {{ ssh_permit_tunnel }}
 #Banner none
 
 # override default of no subsystems
-Subsystem	sftp	{{ ssh_subsystem_sftp | default(__ssh_subsystem_sftp, true) }}
+Subsystem	sftp	{{ ssh_sftp_server | default(__ssh_sftp_server, true) }}
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs

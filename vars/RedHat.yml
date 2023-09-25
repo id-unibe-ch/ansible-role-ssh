@@ -1,4 +1,0 @@
----
-__ssh_server_packages: "openssh-server"
-__ssh_syslog_facility: "AUTHPRIV"
-__ssh_subsystem_sftp: "/usr/libexec/openssh/sftp-server"
