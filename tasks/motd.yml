@@ -1,0 +1,17 @@
+---
+- name: Remove default RHEL motd displays
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version | int == 8
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/motd.d/cockpit
+    - /etc/motd.d/insights-client
+
+- name: Install custom motd banner
+  ansible.builtin.template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'

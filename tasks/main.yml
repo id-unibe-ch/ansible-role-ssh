@@ -15,3 +15,10 @@
 
 - name: Manage ssh client
   ansible.builtin.include_tasks: ssh.yml
+
+- name: Manage MOTD
+  ansible.builtin.include_tasks: motd.yml
+
+- name: Manage firewalld
+  ansible.builtin.include_tasks: firewall.yml
+  when: ssh_manage_firewall | bool

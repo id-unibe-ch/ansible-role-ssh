@@ -49,30 +49,3 @@
     state: started
     enabled: true
     daemon_reload: true
-
-- name: Manage firewalld
-  when: ssh_manage_firewall | bool
-  block:
-    - name: Configure ssh port in firewalld service
-      ansible.builtin.template:
-        src: ssh.xml.j2
-        dest: /etc/firewalld/services/ssh.xml
-        owner: root
-        group: root
-        mode: '0644'
-      notify: reload-firewalld
-
-    - name: Permit ssh traffic in default zone
-      ansible.posix.firewalld:
-        service: ssh
-        permanent: true
-        immediate: true
-        state: enabled
-
-- name: Install motd banner
-  ansible.builtin.template:
-    src: motd.j2
-    dest: /etc/motd
-    owner: root
-    group: root
-    mode: '0644'
