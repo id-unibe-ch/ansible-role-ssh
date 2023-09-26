@@ -6,7 +6,7 @@
     owner: root
     group: root
     mode: '0644'
-  notify: reload-firewalld
+  notify: reload-firewall
 
 - name: Permit ssh traffic in default zone
   ansible.posix.firewalld:

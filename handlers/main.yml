@@ -5,7 +5,7 @@
   ansible.builtin.systemd:
     name: firewalld
     state: reloaded
-  listen: restart-firewalld
+  listen: reload-firewall
 
 - name: Restart sshd service
   ansible.builtin.systemd:
