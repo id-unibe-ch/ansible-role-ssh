@@ -84,6 +84,7 @@ GSSAPIAuthentication {{ ssh_gssapi_authentication }}
 GSSAPICleanupCredentials yes
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
+#GSSAPIKexAlgorithms {{ ssh_crypto_gssapi_kex_algos | default(__ssh_crypto_gssapi_kex_algos, true) | join(',') }}
 #GSSAPIEnablek5users no
 
 
