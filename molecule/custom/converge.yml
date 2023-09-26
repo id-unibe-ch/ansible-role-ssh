@@ -1,0 +1,22 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+
+  vars:
+    ssh_manage_motd_file: true
+    ssh_sftp_server: internal-sftp
+    ssh_use_dns: 'no'
+    ssh_crypto_hostkey_algos:
+      - ssh-ed25519
+    ssh_crypto_kex_algos:
+      - curve25519-sha256
+    ssh_crypto_ciphers:
+      - chacha20-poly1305@openssh.com
+    ssh_crypto_macs:
+      - hmac-sha2-512-etm@openssh.com
+
+  tasks:
+    - name: "Include ansible-role-ssh"
+      ansible.builtin.include_role:
+        name: "unibeid.ssh"

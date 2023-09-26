@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         distro: [rockylinux9, ubuntu2204]
-        scenario: [default]
+        scenario: [default, custom, knownhosts]
         include:
           - playbook: converge.yml
 
