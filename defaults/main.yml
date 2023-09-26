@@ -1,22 +1,45 @@
 ---
-# defaults file for ssh
 
+# Should the sshd service be managed by this role
+ssh_manage_sshd: true
+# Shoud this role open the SSH port in the firewall
+ssh_manage_firewall: false
+# Should this role setup a custom /etc/motd file
+ssh_manage_motd_file: false
+
+# Default port the sshd service should listen on
+# If you want to change the port on a SELinux system, you have to tell
+# SELinux about this change, for example:
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
 ssh_port: "22"
-ssh_address_family: "inet"
-ssh_root_login: "prohibit-password"
-ssh_syslogfacility: "AUTHPRIV"
-ssh_password_auth: "no"
-ssh_pubkey_auth: "yes"
-ssh_kbdinteractive: "yes"
-ssh_x11_forwarding: "yes"
-ssh_gssapi_authentication: "yes"
-ssh_permit_tunnel: "no"
-ssh_motd: "yes"
-ssh_maxstartups: ''
 
+ssh_address_family: "inet"
+ssh_permit_root_login: "prohibit-password"
+ssh_syslog_facility: ""
+# Default log level, VERBOSE is needed to have a clear
+# audit track of which key was used to login
+ssh_log_level: "VERBOSE"
+ssh_use_pam: "yes"
+ssh_password_auth: "no"
+ssh_kbdinteractive: "yes"
+ssh_gssapi_auth: "no"
+ssh_pubkey_auth: "yes"
+ssh_x11_forwarding: "yes"
+ssh_permit_tunnel: "no"
+ssh_maxstartups: "10:30:100"
+ssh_use_dns: "no"
+ssh_sftp_server: ""
+
+# Restrict access to the sshd service to specific users and groups
 ssh_allowusers: []
 ssh_allowgroups: []
 
+# Additional known hosts file that should be copied to the host
+# and added to the ssh client config
 ssh_global_known_hosts: []
 
-ssh_manage_firewall: true
+## Crypto-related configuration options
+ssh_crypto_hostkey_algos: []
+ssh_crypto_kex_algos: []
+ssh_crypto_ciphers: []
+ssh_crypto_macs: []

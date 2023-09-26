@@ -1,0 +1,32 @@
+---
+- name: Ensure ansible_facts used by role
+  ansible.builtin.setup:
+    gather_subset: min
+  when: not ansible_facts.keys() | list |
+    intersect(__ssh_required_facts) == __ssh_required_facts
+
+- name: Set OS dependent variables
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    _distribution_lts_offset: >-
+      {{
+        ansible_facts['distribution_major_version'] | int % 2
+        if ansible_facts['distribution'] == "Ubuntu"
+        else 0
+      }}
+    _distribution_lts_version: >-
+      {{
+        ansible_facts['distribution_major_version'] | int -
+        _distribution_lts_offset | int
+        if ansible_facts['distribution'] == "Ubuntu"
+        else ansible_facts['distribution_major_version']
+      }}
+    params:
+      files:
+        - "{{ ansible_facts['distribution'] }}_{{ _distribution_lts_version }}.yml"
+        - "{{ ansible_facts['os_family'] }}_{{ ansible_facts['distribution_major_version'] }}.yml"
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - "{{ ansible_facts['os_family'] }}.yml"
+        - main.yml  # fallback, vars/main.yml is always loaded by Ansible
+      paths:
+        - "{{ role_path }}/vars"

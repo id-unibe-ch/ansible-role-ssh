@@ -1,0 +1,10 @@
+---
+__ssh_os_supported: true
+
+__ssh_server_packages:
+  - openssh
+  - openssh-clients
+  - openssh-server
+
+__ssh_syslog_facility: AUTHPRIV
+__ssh_sftp_server: /usr/libexec/openssh/sftp-server

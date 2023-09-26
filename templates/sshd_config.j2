@@ -8,10 +8,11 @@
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
+{% if not (ansible_os_family == "RedHat" and ansible_distribution_major_version < "9") %}
 # To modify the system-wide sshd configuration, create a  *.conf  file under
 #  /etc/ssh/sshd_config.d/  which will be automatically included below
 Include /etc/ssh/sshd_config.d/*.conf
-
+{% endif %}
 
 # If you want to change the port on a SELinux system, you have to tell
 # SELinux about this change.
@@ -22,28 +23,25 @@ AddressFamily {{ ssh_address_family }}
 #ListenAddress 0.0.0.0
 #ListenAddress ::
 
+# Supported HostKey algorithms by order of preference.
 HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_rsa_key
 
 # Ciphers and keying
 #RekeyLimit default none
-HostKeyAlgorithms -ecdsa-sha2-nistp256,ssh-rsa
-MACs -hmac-sha1,hmac-sha1-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,umac-128@openssh.com,umac-64-etm@openssh.com,umac-64@openssh.com
-KexAlgorithms -ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha256,+sntrup761x25519-sha512@openssh.com
-
-# Follow system-wide Crypto Policy, if defined
-# Note: The values above overrule any settings in the file below!
-Include /etc/crypto-policies/back-ends/openssh.config
+HostKeyAlgorithms {{ ssh_crypto_hostkey_algos | default(__ssh_crypto_hostkey_algos, true) | join(',') }}
+KexAlgorithms {{ ssh_crypto_kex_algos | default(__ssh_crypto_kex_algos, true) | join(',') }}
+Ciphers {{ ssh_crypto_ciphers | default(__ssh_crypto_ciphers, true) | join(',') }}
+MACs {{ ssh_crypto_macs | default(__ssh_crypto_macs, true) | join(',') }}
 
 # Logging
-SyslogFacility {{ ssh_syslogfacility }}
-#LogLevel INFO
+SyslogFacility {{ ssh_syslog_facility | default(__ssh_syslog_facility, true) }}
+LogLevel {{ ssh_log_level }}
 
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin {{ ssh_root_login }}
+PermitRootLogin {{ ssh_permit_root_login }}
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
@@ -82,10 +80,11 @@ KbdInteractiveAuthentication {{ ssh_kbdinteractive }}
 #KerberosUseKuserok yes
 
 # GSSAPI options
-GSSAPIAuthentication {{ ssh_gssapi_authentication }}
+GSSAPIAuthentication {{ ssh_gssapi_auth }}
 GSSAPICleanupCredentials yes
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
+#GSSAPIKexAlgorithms {{ ssh_crypto_gssapi_kex_algos | default(__ssh_crypto_gssapi_kex_algos, true) | join(',') }}
 #GSSAPIEnablek5users no
 
 
@@ -100,7 +99,7 @@ GSSAPICleanupCredentials yes
 # and KbdInteractiveAuthentication to 'no'.
 # WARNING: 'UsePAM no' is not supported in RHEL and may cause several
 # problems.
-UsePAM yes
+UsePAM {{ ssh_use_pam }}
 
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
@@ -109,14 +108,14 @@ X11Forwarding {{ ssh_x11_forwarding }}
 #X11DisplayOffset 10
 #X11UseLocalhost yes
 #PermitTTY yes
-PrintMotd {{ ssh_motd }}
+PrintMotd no
 #PrintLastLog yes
 #TCPKeepAlive yes
 #PermitUserEnvironment no
 #Compression delayed
 #ClientAliveInterval 0
 #ClientAliveCountMax 3
-UseDNS no
+UseDNS {{ ssh_use_dns }}
 #PidFile /var/run/sshd.pid
 MaxStartups {{ ssh_maxstartups | default(__ssh_maxstartups, true) }}
 
@@ -128,7 +127,7 @@ PermitTunnel {{ ssh_permit_tunnel }}
 #Banner none
 
 # override default of no subsystems
-Subsystem	sftp	/usr/libexec/openssh/sftp-server
+Subsystem	sftp	{{ ssh_sftp_server | default(__ssh_sftp_server, true) }}
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
