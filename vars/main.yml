@@ -43,7 +43,7 @@ __ssh_crypto_macs:
   - hmac-sha2-256-etm@openssh.com
   - umac-128-etm@openssh.com
 
-# Key Exchange Algorithms from GSSAPI Authentication
+# Key Exchange Algorithms for GSSAPI Authentication
 __ssh_crypto_gssapi_kex_algos:
   - gss-curve25519-sha256-
   - gss-group16-sha512-

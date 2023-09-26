@@ -14,23 +14,23 @@ ssh_manage_motd_file: false
 ssh_port: "22"
 
 ssh_address_family: "inet"
-ssh_root_login: "prohibit-password"
+ssh_permit_root_login: "prohibit-password"
 ssh_syslog_facility: ""
-# Default log level, VERBOSE is need to have a clear
+# Default log level, VERBOSE is needed to have a clear
 # audit track of which key was used to login
 ssh_log_level: "VERBOSE"
+ssh_use_pam: "yes"
 ssh_password_auth: "no"
-ssh_pubkey_auth: "yes"
 ssh_kbdinteractive: "yes"
+ssh_gssapi_auth: "no"
+ssh_pubkey_auth: "yes"
 ssh_x11_forwarding: "yes"
-ssh_gssapi_authentication: "yes"
 ssh_permit_tunnel: "no"
-ssh_motd: "no"
 ssh_maxstartups: "10:30:100"
 ssh_use_dns: "no"
-ssh_use_pam: "yes"
 ssh_sftp_server: ""
 
+# Restrict access to the sshd service to specific users and groups
 ssh_allowusers: []
 ssh_allowgroups: []
 

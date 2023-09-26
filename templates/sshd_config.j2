@@ -41,7 +41,7 @@ LogLevel {{ ssh_log_level }}
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin {{ ssh_root_login }}
+PermitRootLogin {{ ssh_permit_root_login }}
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
@@ -80,7 +80,7 @@ KbdInteractiveAuthentication {{ ssh_kbdinteractive }}
 #KerberosUseKuserok yes
 
 # GSSAPI options
-GSSAPIAuthentication {{ ssh_gssapi_authentication }}
+GSSAPIAuthentication {{ ssh_gssapi_auth }}
 GSSAPICleanupCredentials yes
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
@@ -108,7 +108,7 @@ X11Forwarding {{ ssh_x11_forwarding }}
 #X11DisplayOffset 10
 #X11UseLocalhost yes
 #PermitTTY yes
-PrintMotd {{ ssh_motd }}
+PrintMotd no
 #PrintLastLog yes
 #TCPKeepAlive yes
 #PermitUserEnvironment no
