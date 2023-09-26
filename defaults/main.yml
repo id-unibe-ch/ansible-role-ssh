@@ -4,6 +4,8 @@
 ssh_manage_sshd: true
 # Shoud this role open the SSH port in the firewall
 ssh_manage_firewall: false
+# Should this role setup a custom /etc/motd file
+ssh_manage_motd_file: false
 
 # Default port the sshd service should listen on
 # If you want to change the port on a SELinux system, you have to tell

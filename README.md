@@ -116,6 +116,15 @@ Whether to manage the firewall using `ansible.posix.firwalld` or not. This a
 soft dependency. If you want to use it, either use the full Ansible package or
 add the collection `ansible.posix` to your `requirements.yml`!
 
+### ssh_manage_motd_file
+
+    ssh_manage_motd_file: false
+
+Specifies weather to craft a custom `/etc/motd` file showing some system
+informations like OS name/version, IP addresses and CPU and memory information.
+If set to false, the file `/etc/motd` is not modified, if set to true the file
+is managed an updated if needed.
+
 ## Example Playbook
 
 Including an example of how to use your role (for instance, with variables
