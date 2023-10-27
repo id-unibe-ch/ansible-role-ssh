@@ -43,3 +43,6 @@ ssh_crypto_hostkey_algos: []
 ssh_crypto_kex_algos: []
 ssh_crypto_ciphers: []
 ssh_crypto_macs: []
+
+## Firewalld-related configuration options
+ssh_firewalld_zone: ''

@@ -208,6 +208,16 @@ This role configures only secure algorithms by default in order to have
 authentication code algorithms that this role defines by defaults. See
 `vars/*.yml` for details.
 
+### ssh_firewalld_zone
+
+    ssh_firewalld_zone: ''
+
+This role can optionally configure a specific firewalld zone
+(if `ssh_manage_firewall` is `true`) for which the ssh service is allowed.
+By default the zone is omitted and the firewalld defaults used.
+See [firewalld documentation](https://firewalld.org/documentation/zone/default-zone.html)
+for details.
+
 ## Example Playbook
 
 Including an example of how to use your role (for instance, with variables

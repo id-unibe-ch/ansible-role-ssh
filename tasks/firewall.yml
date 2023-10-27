@@ -13,4 +13,5 @@
     service: ssh
     permanent: true
     immediate: true
+    zone: "{{ ssh_firewalld_zone | default(omit, true) }}"
     state: enabled
