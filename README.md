@@ -214,7 +214,7 @@ authentication code algorithms that this role defines by defaults. See
 
 This role can optionally configure a specific firewalld zone
 (if `ssh_manage_firewall` is `true`) for which the ssh service is allowed.
-By default the zone is omitted and the firewalld defaults used.
+By default the zone is omitted and the firewalld defaults are used.
 See [firewalld documentation](https://firewalld.org/documentation/zone/default-zone.html)
 for details.
 
