@@ -1,24 +1,30 @@
 ---
 galaxy_info:
-  author: grvlbit
-  description: Control ssh server configuration
-  company: hpc-unibe-ch
+  author: Michael Rolli <michael.rolli@unibe.ch>
+  description: Manages the ssh server and client configuration
+  company: University of Bern, IT Services Office
 
   role_name: ssh
   namespace: unibeid
 
   license: MIT
 
-  min_ansible_version: '2.1'
+  min_ansible_version: '2.9'
 
   platforms:
     - name: EL
       versions:
+        - '7'
+        - '8'
         - '9'
     - name: Ubuntu
       versions:
-        - 'jammy'
+        - focal
+        - jammy
 
-  galaxy_tags: []
+  galaxy_tags:
+    - ssh
+    - opensshserver
+    - opensshclient
 
 dependencies: []
