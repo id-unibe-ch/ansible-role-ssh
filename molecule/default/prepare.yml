@@ -8,22 +8,6 @@
         update_cache: true
       when: ansible_os_family == 'Debian'
 
-    - name: Install firewalld dependencies
-      ansible.builtin.package:
-        name: netbase
-      when: ansible_os_family == "Debian"
-
-    - name: Install firewalld
-      ansible.builtin.package:
-        name: firewalld
-        state: present
-
-    - name: Enable firewalld
-      ansible.builtin.systemd:
-        name: firewalld
-        enabled: true
-        state: started
-
     - name: Install ssh client
       ansible.builtin.package:
         name: "{{ 'openssh-clients' if (ansible_os_family == 'RedHat') else 'openssh-client' }}"

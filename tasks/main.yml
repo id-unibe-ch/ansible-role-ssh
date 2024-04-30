@@ -19,7 +19,3 @@
 - name: Manage MOTD
   ansible.builtin.include_tasks: motd.yml
   when: ssh_manage_motd_file | bool
-
-- name: Manage firewalld
-  ansible.builtin.include_tasks: firewall.yml
-  when: ssh_manage_firewall | bool
