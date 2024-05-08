@@ -10,6 +10,12 @@ features:
   [role variables](#role-variables)
 * Support global known hosts files for ssh clients (`/etc/ssh/ssh_config`)
 
+> [!NOTE]
+> This role does NOT include firewall configuration. If your system is
+> protected by a firewall, which it probably should, you need to manage the
+> respective firewall rules independently, e.g. in the playbook that
+> includes or imports this role.
+
 ## Requirements
 
 No prerequisites necessary at the moment.
@@ -27,19 +33,11 @@ Specifies whether the sshd service should be managed by this role or not.
 Usually this is left to true, but might be temporarily set to false when this is
 needed.
 
-### ssh_manage_firewall
-
-    ssh_manage_firewall: false
-
-Specifies whether to manage the firewall using `ansible.posix.firwalld` or not.
-This a soft dependency. If you want to use it, either use the full Ansible
-package or add the collection `ansible.posix` to your `requirements.yml`!
-
 ### ssh_manage_motd_file
 
     ssh_manage_motd_file: false
 
-Specifies wether to craft a custom `/etc/motd` file showing some system
+Specifies whether to craft a custom `/etc/motd` file showing some system
 informations like OS name/version, IP addresses and CPU and memory information.
 If set to false, the file `/etc/motd` is not modified, if set to true the file
 is managed an updated if needed.
@@ -208,16 +206,6 @@ This role configures only secure algorithms by default in order to have
 authentication code algorithms that this role defines by defaults. See
 `vars/*.yml` for details.
 
-### ssh_firewalld_zone
-
-    ssh_firewalld_zone: ''
-
-This role can optionally configure a specific firewalld zone
-(if `ssh_manage_firewall` is `true`) for which the ssh service is allowed.
-By default the zone is omitted and the firewalld defaults are used.
-See [firewalld documentation](https://firewalld.org/documentation/zone/default-zone.html)
-for details.
-
 ## Example Playbook
 
 Including an example of how to use your role (for instance, with variables
@@ -241,8 +229,7 @@ This role has been written for and tested on and is therefore compatible with:
 
 ## Dependencies
 
-This role has a soft dependency on the collection `ansible.posix` if you set
-`ssh_manage_firewall` to true.
+This role has no dependencies.
 
 ## License
 
