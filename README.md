@@ -149,6 +149,21 @@ external command `sftp-server` is used, for which the path is OS-dependent.
 Override this config value if you want to use another sftp server, i.e. `internal-sftp`
 for the in-process SFTP server.
 
+### ssh_authorized_keys_command
+
+    ssh_authorized_keys_command: "none"
+
+Specifies a program to be used to look up the user's public keys.  The program must be owned by root, not writable by
+group or others and specified by an absolute path. The program should produce on standard output zero or more lines of authorized_keys output (see the man pages for sshd and sshd_config for details). AuthorizedKeysCommand is tried after the usual AuthorizedKeysFile files and will not be executed if a matching key is found there. By default no command is run.
+
+### ssh_authorized_keys_command_user
+
+    ssh_authorized_keys_command_user: "nobody"
+
+Specifies the user under whose account the AuthorizedKeysCommand is run.  It is recommended to use a dedicated user that
+has no other role on the host than running authorized keys commands. By default
+the nobody user is used to run the program specified in AuthorizedKeysCommand.
+
 ### ssh_allowusers
 
     ssh_allowusers: []
