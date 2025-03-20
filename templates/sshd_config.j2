@@ -54,8 +54,8 @@ AuthorizedKeysFile	.ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
-#AuthorizedKeysCommand none
-#AuthorizedKeysCommandUser nobody
+{% if ssh_authorized_keys_command == "none" %}#AuthorizedKeysCommand none{% else %}AuthorizedKeysCommand {{ ssh_authorized_keys_command }}{% endif +%}
+{% if ssh_authorized_keys_command_user == "nobody" %}#AuthorizedKeysCommandUser nobody{% else %}AuthorizedKeysCommandUser {{ ssh_authorized_keys_command_user }}{% endif +%}
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
 #HostbasedAuthentication no

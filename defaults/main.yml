@@ -28,6 +28,10 @@ ssh_maxstartups: "10:30:100"
 ssh_use_dns: "no"
 ssh_sftp_server: ""
 
+# Specify authorized keys command and user
+ssh_authorized_keys_command: "none"
+ssh_authorized_keys_command_user: "nobody"
+
 # Restrict access to the sshd service to specific users and groups
 ssh_allowusers: []
 ssh_allowgroups: []
