@@ -4,6 +4,12 @@
     name: '{{ __ssh_server_packages }}'
     state: present
 
+- name: Check whether Ubuntu SSH socket activation is in use
+  ansible.builtin.systemd:
+    name: ssh.socket
+  register: __ssh_socket
+  when: __ssh_manage_socket | bool
+
 - name: Remove default sshd config file on newer EL9
   ansible.builtin.file:
     name: "/etc/ssh/sshd_config.d/50-redhat.conf"
@@ -45,7 +51,7 @@
 
 - name: Start ssh service
   ansible.builtin.systemd:
-    name: sshd
+    name: "{{ __ssh_service_name }}"
     state: started
     enabled: true
     daemon_reload: true

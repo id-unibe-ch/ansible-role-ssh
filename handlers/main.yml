@@ -1,8 +1,18 @@
 ---
 # handlers file for ssh
 #
+- name: Restart Ubuntu SSH socket
+  ansible.builtin.systemd:
+    name: ssh.socket
+    state: restarted
+    daemon_reload: true
+  listen: restart-sshd
+  when:
+    - __ssh_manage_socket | bool
+    - __ssh_socket.status.ActiveState == 'active'
+
 - name: Restart sshd service
   ansible.builtin.systemd:
-    name: sshd
+    name: "{{ __ssh_service_name }}"
     state: restarted
   listen: restart-sshd

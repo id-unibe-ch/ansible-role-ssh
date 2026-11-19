@@ -1,0 +1,28 @@
+---
+- name: Verify standalone SSH service
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read SSH socket status
+      ansible.builtin.systemd:
+        name: ssh.socket
+      register: ssh_socket
+
+    - name: Read SSH service status
+      ansible.builtin.systemd:
+        name: ssh
+      register: ssh_service
+
+    - name: Verify standalone activation remains in use
+      ansible.builtin.assert:
+        that:
+          - ssh_socket.status.ActiveState == 'inactive'
+          - ssh_socket.status.UnitFileState == 'disabled'
+          - ssh_service.status.ActiveState == 'active'
+
+    - name: Verify standalone service listens on the configured port
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 2222
+        state: started
+        timeout: 5

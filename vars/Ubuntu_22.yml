@@ -1,6 +1,9 @@
 ---
 __ssh_os_supported: true
 
+__ssh_service_name: ssh
+__ssh_manage_socket: false
+
 __ssh_server_packages:
   - openssh-client
   - openssh-server

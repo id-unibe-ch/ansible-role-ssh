@@ -3,9 +3,36 @@
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
 
   tasks:
+    - name: Verify custom SSH port in sshd configuration
+      ansible.builtin.command: sshd -T
+      changed_when: false
+      register: sshd_config
+
+    - name: Assert custom SSH port is configured
+      ansible.builtin.assert:
+        that:
+          - "'port 2222' in sshd_config.stdout"
+
+    - name: Read systemd SSH socket status
+      ansible.builtin.systemd:
+        name: ssh.socket
+      register: ssh_socket
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version | int >= 24
+
+    - name: Assert socket activation listens on the configured port
+      ansible.builtin.assert:
+        that:
+          - ssh_socket.status.ActiveState == 'active'
+          - "'2222' in ssh_socket.status.Listen"
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version | int >= 24
+
     - name: Example assertion
       ansible.builtin.assert:
         that: true

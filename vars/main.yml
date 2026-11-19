@@ -1,6 +1,9 @@
 ---
 __ssh_os_supported: false
 
+__ssh_service_name: sshd
+__ssh_manage_socket: false
+
 __ssh_required_facts:
   - distribution
   - distribution_major_version
@@ -24,9 +27,6 @@ __ssh_crypto_hostkey_algos:
 __ssh_crypto_kex_algos:
   - curve25519-sha256
   - curve25519-sha256@libssh.org
-  - diffie-hellman-group18-sha512
-  - diffie-hellman-group16-sha512
-  - diffie-hellman-group-exchange-sha256
 
 # Encryption Algorithms (Ciphers)
 __ssh_crypto_ciphers:
