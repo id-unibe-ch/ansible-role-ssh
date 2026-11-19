@@ -239,8 +239,15 @@ This role has been written for and tested on and is therefore compatible with:
 * CentOS-7
 * Rocky-8
 * Rocky-9
-* Ubuntu-20.04
 * Ubuntu-22.04
+* Ubuntu-24.04
+* Ubuntu-26.04
+
+The role's default SSH key-exchange algorithms are selected for the supported
+OpenSSH versions. Post-quantum key exchange is enabled where supported, and
+finite-field Diffie-Hellman is excluded by default. Override
+`ssh_crypto_kex_algos` only when compatibility with legacy SSH clients is
+required.
 
 ## Dependencies
 

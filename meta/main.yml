@@ -19,8 +19,9 @@ galaxy_info:
         - '9'
     - name: Ubuntu
       versions:
-        - focal
         - jammy
+        - noble
+        - resolute
 
   galaxy_tags:
     - ssh

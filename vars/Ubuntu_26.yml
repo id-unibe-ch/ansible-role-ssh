@@ -1,0 +1,16 @@
+---
+__ssh_os_supported: true
+
+__ssh_service_name: ssh
+__ssh_manage_socket: true
+
+__ssh_server_packages:
+  - openssh-client
+  - openssh-server
+  - openssh-sftp-server
+
+__ssh_crypto_kex_algos:
+  - mlkem768x25519-sha256
+  - sntrup761x25519-sha512@openssh.com
+  - curve25519-sha256
+  - curve25519-sha256@libssh.org

@@ -3,9 +3,32 @@
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
 
   tasks:
-    - name: Example assertion
+    - name: Read effective sshd configuration
+      ansible.builtin.command: sshd -T
+      changed_when: false
+      register: sshd_config
+
+    - name: Verify default KEX policy excludes finite-field DH
       ansible.builtin.assert:
-        that: true
+        that:
+          - "'kexalgorithms' in sshd_config.stdout"
+          - "'diffie-hellman-' not in sshd_config.stdout"
+
+    - name: Verify Ubuntu 24 and later enable post-quantum KEX
+      ansible.builtin.assert:
+        that:
+          - "'sntrup761x25519-sha512@openssh.com' in sshd_config.stdout"
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version | int >= 24
+
+    - name: Verify Ubuntu 26 enables ML-KEM KEX
+      ansible.builtin.assert:
+        that:
+          - "'mlkem768x25519-sha256' in sshd_config.stdout"
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version | int >= 26
