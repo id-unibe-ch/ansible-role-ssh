@@ -41,6 +41,10 @@ jobs:
         scenario: [default, custom, knownhosts]
         include:
           - playbook: converge.yml
+          - distro: ubuntu2404
+            scenario: service-only
+          - distro: ubuntu2604
+            scenario: service-only
 
     steps:
       - name: Checkout the codebase

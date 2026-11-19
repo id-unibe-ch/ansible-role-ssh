@@ -1,0 +1,24 @@
+---
+- name: Prepare SSH host
+  ansible.builtin.import_playbook: ../custom/prepare.yml
+
+- name: Prepare standalone SSH service
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install SSH server
+      ansible.builtin.package:
+        name: openssh-server
+        state: present
+
+    - name: Disable SSH socket activation
+      ansible.builtin.systemd:
+        name: ssh.socket
+        state: stopped
+        enabled: false
+
+    - name: Start standalone SSH service
+      ansible.builtin.systemd:
+        name: ssh
+        state: started
+        enabled: true
